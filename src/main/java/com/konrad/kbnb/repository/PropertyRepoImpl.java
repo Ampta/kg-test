@@ -1,13 +1,13 @@
 package com.konrad.kbnb.repository;
 
-import com.konrad.kbnb.entity.Property;
-import com.konrad.kbnb.exception.RestrictedPropertyException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.konrad.kbnb.entity.Property;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Component
 public class PropertyRepoImpl{
@@ -20,8 +20,23 @@ public class PropertyRepoImpl{
         return property;
     }
 
-    public List<Property> getPropertyWithMinimumStars(String propertyName){
+    public List<Property> getPropertyWithMinimumStars(String propertyName, int stars){
         return entityManager.createQuery("select p from Property p where p.stars < 5", Property.class).getResultList();
     }
+    
+    public List<Property> getPropertyByName(String propertyName){
+    	return entityManager.createQuery("select p FROM Property p where lower(p.name) like lower(concat(:name, '%'))", Property.class)
+    			.setParameter("name", propertyName)
+    			.getResultList();
+    }
+    
+    
+    public void deleteProperty(Long id) {
+    	Property property = entityManager.find(Property.class, id);
+    	entityManager.remove(property);
+    }
+    
 
 }
+
+

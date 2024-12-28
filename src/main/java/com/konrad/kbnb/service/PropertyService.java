@@ -1,17 +1,16 @@
 package com.konrad.kbnb.service;
 
-import com.konrad.kbnb.Model.LookUpMatch;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.konrad.kbnb.Model.LookUpTreeNode;
 import com.konrad.kbnb.Model.PropertyRequestBody;
 import com.konrad.kbnb.entity.Property;
 import com.konrad.kbnb.exception.RestrictedPropertyException;
 import com.konrad.kbnb.repository.PropertyRepo;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import jakarta.transaction.Transactional;
 
 @Service
 public class PropertyService {
@@ -39,8 +38,8 @@ public class PropertyService {
         return property;
     }
 
-    public List<Property> getPropertiesWithNameAndMinimumAmountOfStars(String name){
-        return propertyRepo.getPropertyWithMinimumStars(name);
+    public List<Property> getPropertiesWithNameAndMinimumAmountOfStars(String name, int stars){
+        return propertyRepo.getPropertyWithMinimumStars(name, stars);
     }
 
     public List<Long> getSuperHost(){
@@ -50,5 +49,16 @@ public class PropertyService {
     public LookUpTreeNode getLookUpTree(){
         return new LookUpTreeNode();
     }
-
+    
+    public List<Property> getPropertyByName(String propertyName){
+    	if(propertyName == null || propertyName.isEmpty()) {
+    		return propertyRepo.findAll();
+    	}
+    	return propertyRepo.getPropertyByName(propertyName);
+    }
+    
+    @Transactional
+    public void deletePropertyById(Long id) {
+    	propertyRepo.deletePropertyById(id);
+    }
 }

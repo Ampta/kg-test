@@ -1,7 +1,14 @@
 package com.konrad.kbnb.entity;
 
 import com.konrad.kbnb.Model.PropertyRequestBody;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Property {
@@ -31,6 +38,11 @@ public class Property {
     int stars;
     @Column
     String territory;
+    
+    @ManyToOne
+    @JoinColumn(name = "reservation_id")
+   
+    private Reservation reservation;
 
     public Property() {
     }

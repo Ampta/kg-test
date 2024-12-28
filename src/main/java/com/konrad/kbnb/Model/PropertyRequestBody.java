@@ -1,10 +1,16 @@
 package com.konrad.kbnb.Model;
 
-import jakarta.persistence.Column;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 public class PropertyRequestBody {
+	
+	@NotNull(message = "name is not null")
     private String name;
+	
+	@Min(value=100, message = "rate must be > 100")
     private double rate;
+	
     private String city;
     String houseType;
     String imageAltText;

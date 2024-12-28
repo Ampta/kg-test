@@ -1,16 +1,17 @@
 package com.konrad.kbnb.service;
 
-import com.konrad.kbnb.entity.Property;
-import com.konrad.kbnb.fixtures.PropertyFixture;
-import com.konrad.kbnb.repository.PropertyRepo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import com.konrad.kbnb.entity.Property;
+import com.konrad.kbnb.fixtures.PropertyFixture;
+import com.konrad.kbnb.repository.PropertyRepo;
 
 @ExtendWith(MockitoExtension.class)
 public class PropertyServiceTest {
